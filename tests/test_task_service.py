@@ -1,6 +1,8 @@
 import pytest
 from unittest.mock import Mock
-from services import TaskService, Task
+from services.services import TaskService
+from models.task import Task
+from controllers.controller import TaskController
 
 
 def test_create_task_success():
@@ -214,3 +216,37 @@ def test_repository_not_called_on_error():
         pass
 
     repo.save.assert_not_called()
+
+
+def test_controller_create_task():
+    service = Mock()
+
+    controller = TaskController(service)
+
+    controller.create_task("Task", "ACTIVE", 5)
+
+    service.create_task.assert_called_once_with("Task", "ACTIVE", 5)
+
+
+
+
+def test_controller_show_active_tasks():
+    service = Mock()
+
+    controller = TaskController(service)
+
+    controller.show_active_tasks()
+
+    service.get_active_tasks.assert_called_once()
+
+
+
+
+def test_controller_show_high_priority_tasks():
+    service = Mock()
+
+    controller = TaskController(service)
+
+    controller.show_high_priority_tasks(5)
+
+    service.get_high_priority_tasks.assert_called_once_with(5)

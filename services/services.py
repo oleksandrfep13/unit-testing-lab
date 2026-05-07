@@ -1,17 +1,5 @@
-class Task:
-    def __init__(self, title, status, priority):
-        self.title = title
-        self.status = status
-        self.priority = priority
-
-
-class TaskRepository:
-    def save(self, task):
-        pass
-
-    def get_all(self):
-        pass
-
+from repositories.repository import TaskRepository
+from models.task import Task
 
 class TaskService:
     def __init__(self, repository: TaskRepository):
